@@ -5,6 +5,8 @@ import (
 
 	"os"
 
+	"fmt"
+
 	"github.com/gotk3/gotk3/gtk"
 )
 
@@ -50,6 +52,19 @@ func main() {
 	top.SetMarginEnd(11)
 	top.SetMarginBottom(11)
 	top.SetMarginTop(11)
+
+	h, err := gtk.HeaderBarNew()
+
+	for i := 1; i < 4; i++ {
+		hb, _ := gtk.ButtonNewWithLabel(fmt.Sprintf("Machin %d", i))
+		h.Add(hb)
+	}
+	close, _ := gtk.ButtonNewFromIconName("window-close", gtk.ICON_SIZE_BUTTON)
+	h.Add(close)
+	close.Connect("clicked", func() {
+		gtk.MainQuit()
+	})
+	c.Add(h)
 
 	// Add the label to the window.
 	top.Add(l)
